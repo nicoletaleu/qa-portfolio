@@ -1,0 +1,21 @@
+# Node, for newman and later Cypress
+node_modules/
+package-lock.json
+
+# newman writes its reports here. Not `*.html` - a later block will have HTML
+# that belongs in the repo, and a gitignore that swallows fixtures is a bad
+# afternoon.
+newman/
+
+# Python, for the Selenium + pytest block
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

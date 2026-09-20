@@ -1,0 +1,259 @@
+{
+  "info": {
+    "_postman_id": "8f3c1d92-4a7b-4e51-9a20-6c1f0b7d5e33",
+    "name": "QA Learning — JSONPlaceholder",
+    "description": "P1 — the same public API the Robot suites in tests/api/ already cover, done again in Postman.\n\nThe practice is not new; the tool is. What is worth noticing is where the two differ:\n\n- Robot puts assertions in the suite, in a language built for them. Postman puts them in a JavaScript `Tests` tab, so an assertion is code and can drift into logic.\n- Robot resolves variables from a variable file or the command line. Postman has four scopes (collection, environment, local, global) and the narrowest one wins.\n- Robot chains requests by returning a value into a variable. Postman writes into `pm.collectionVariables`, which persists for the whole run.\n\nRun it in the app, or headless:\n  newman run postman/qa-learning.postman_collection.json -e postman/environments/public.postman_environment.json",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "event": [
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// A collection-level test runs after EVERY request in the collection.",
+          "// This is the Postman idea with no Robot equivalent: two checks written",
+          "// once and applied to everything, including requests added later.",
+          "pm.test('Responds within 5 seconds', function () {",
+          "    pm.expect(pm.response.responseTime).to.be.below(5000);",
+          "});",
+          "",
+          "pm.test('Responds with JSON', function () {",
+          "    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+          "});"
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "createdPostId",
+      "value": "",
+      "type": "string",
+      "description": "Filled in by 'Create a post' and read by the request after it. Collection scope, so it survives across requests in one run."
+    }
+  ],
+  "item": [
+    {
+      "name": "Read",
+      "description": "GETs only. Nothing here changes anything, so the order does not matter — the Day 18 rule, in another tool.",
+      "item": [
+        {
+          "name": "Get one post",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "const post = pm.response.json();",
+                  "",
+                  "pm.test('Has the fields the tests rely on', function () {",
+                  "    pm.expect(post).to.have.all.keys('userId', 'id', 'title', 'body');",
+                  "});",
+                  "",
+                  "// The Day 25 lesson, ported: a field that is present but of the wrong",
+                  "// type passes every existence check. Assert the type, not the key.",
+                  "pm.test('id is a number, not a string', function () {",
+                  "    pm.expect(post.id).to.be.a('number');",
+                  "    pm.expect(post.userId).to.be.a('number');",
+                  "});",
+                  "",
+                  "pm.test('It is the post that was asked for', function () {",
+                  "    pm.expect(post.id).to.eql(1);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/posts/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["posts", "1"]
+            },
+            "description": "The simplest possible request, so the assertions are the interesting part."
+          }
+        },
+        {
+          "name": "Get posts by user",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "const posts = pm.response.json();",
+                  "",
+                  "pm.test('Something came back', function () {",
+                  "    pm.expect(posts).to.be.an('array').that.is.not.empty;",
+                  "});",
+                  "",
+                  "// Every item, not the first one. A list that is right at the top and",
+                  "// wrong in the middle is exactly what a spot check misses.",
+                  "pm.test('Every post belongs to the user that was filtered on', function () {",
+                  "    const wanted = Number(pm.environment.get('userId'));",
+                  "    posts.forEach(function (post, index) {",
+                  "        pm.expect(post.userId, 'post at index ' + index).to.eql(wanted);",
+                  "    });",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/posts?userId={{userId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["posts"],
+              "query": [{ "key": "userId", "value": "{{userId}}" }]
+            },
+            "description": "userId comes from the environment, so pointing this at another dataset means switching environment, not editing requests."
+          }
+        },
+        {
+          "name": "A missing post is 404",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// The negative case. A suite that only ever asks for things that exist",
+                  "// has not tested the lookup, it has tested the happy path.",
+                  "pm.test('Status is 404', function () {",
+                  "    pm.response.to.have.status(404);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/posts/999999",
+              "host": ["{{baseUrl}}"],
+              "path": ["posts", "999999"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Write",
+      "description": "The requests that hand something to the API, and the one that checks what happened next.",
+      "item": [
+        {
+          "name": "Create a post",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Pre-request script: runs BEFORE the request is sent, which is where",
+                  "// test data gets built. Same job as Random Email in DataHelpers.py -",
+                  "// a fixed title passes once and then collides with itself.",
+                  "const stamp = Date.now();",
+                  "pm.collectionVariables.set('postTitle', 'Written by Postman ' + stamp);",
+                  "pm.collectionVariables.set('postBody', 'Run at ' + new Date(stamp).toISOString());"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 201', function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "const created = pm.response.json();",
+                  "",
+                  "pm.test('It echoes back exactly what was sent', function () {",
+                  "    pm.expect(created.title).to.eql(pm.collectionVariables.get('postTitle'));",
+                  "    pm.expect(created.body).to.eql(pm.collectionVariables.get('postBody'));",
+                  "});",
+                  "",
+                  "pm.test('It hands back an id', function () {",
+                  "    pm.expect(created.id).to.be.a('number');",
+                  "});",
+                  "",
+                  "// Chaining: this is how a value reaches the next request. Collection",
+                  "// scope rather than environment scope, so a run does not quietly edit",
+                  "// the environment file that other runs share.",
+                  "pm.collectionVariables.set('createdPostId', created.id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"{{postTitle}}\",\n  \"body\": \"{{postBody}}\",\n  \"userId\": {{userId}}\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/posts",
+              "host": ["{{baseUrl}}"],
+              "path": ["posts"]
+            }
+          }
+        },
+        {
+          "name": "The created post was never stored",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// A 201 is a claim, not a receipt - Robot Day 22, reached from the other",
+                  "// direction. JSONPlaceholder is a fake API: it answers 201 with a",
+                  "// convincing id and stores nothing, so asking for that id gives 404.",
+                  "//",
+                  "// This test asserts the behaviour that is actually there rather than the",
+                  "// one that ought to be. Against a real service it would be the opposite,",
+                  "// and it is worth knowing which of the two you are looking at.",
+                  "pm.test('The id that came back cannot be fetched', function () {",
+                  "    pm.response.to.have.status(404);",
+                  "});",
+                  "",
+                  "pm.test('The chained variable did get set', function () {",
+                  "    pm.expect(pm.collectionVariables.get('createdPostId')).to.not.eql('');",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/posts/{{createdPostId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["posts", "{{createdPostId}}"]
+            },
+            "description": "Reads the id the previous request saved. Run this one on its own and it fails, because the variable is empty - the same order dependence Robot Day 24 was about, and Postman makes it easy to write by accident."
+          }
+        }
+      ]
+    }
+  ]
+}
