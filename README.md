@@ -24,9 +24,8 @@ honest than a folder with a placeholder in it.
 
 Five repos with four commits each read as five abandoned projects. Progression
 is the thing worth showing, and progression needs somewhere to accumulate: the
-test plan written for one application is about the same application the browser
-tests automate, and that
-connection only exists if they share a repo.
+Playwright and Cypress tests will run in the same GitHub Actions setup the
+Postman collection does, and that comparison only exists if they share a repo.
 
 Robot stays separate for the opposite reason — it is finished, and it reads as
 one thing. Nested under a folder here it would stop reading as one thing.
@@ -34,6 +33,6 @@ one thing. Nested under a folder here it would stop reading as one thing.
 ## Running any of it
 
 Each folder has its own README with its own command. There is no top-level
-runner, on purpose: a Postman collection and a pytest suite have nothing to
+runner, on purpose: a Postman collection and a Playwright suite have nothing to
 share but a repo, and pretending otherwise means writing a script whose only
 job is to hide which tool is running.
