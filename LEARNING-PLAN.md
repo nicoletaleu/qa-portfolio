@@ -1,12 +1,12 @@
 # Learning Plan
 
-The order below is a colleague's. He is
-a working QA engineer, he read the Robot repo, and he said what he would learn
-and in what order. His three additions come first; everything after them is what
-this plan already had, with his cuts and corrections applied.
+My plan for what to learn after Robot Framework, and in what order.
 
-His reasons are kept in his words where he gave them. A plan without its
-reasoning is a plan nobody can argue with later.
+The order was reworked after a working QA engineer read the Robot repo and told
+me what he would change. I have kept his conclusions and dropped his name: the
+advice came in a private message, and it is not mine to publish. The reasoning
+is written out below, because a plan without its reasoning is a plan I cannot
+argue with in six months.
 
 ## Where I am
 
@@ -27,7 +27,8 @@ reasoning is a plan nobody can argue with later.
 
 ## 1. Prompt engineering + using AI at an advanced level
 
-> sunt cerute extrem de mult acum
+In demand right now, and it compounds: every block below goes faster once this
+one is real.
 
 - [ ] **Skills** — reusable instructions instead of retyping context every session
 - [ ] **Context** — what a model can and cannot see, why a long session degrades,
@@ -41,7 +42,8 @@ reasoning is a plan nobody can argue with later.
 
 ## 2. Git + GitHub — the practical side
 
-> logic, the actual practicality of it
+The logic of it, and the actual practicality: not what a commit is, but what a
+working day with branches and reviews in it looks like.
 
 - [ ] **Commands** — the everyday set, and what each one really does
 - [ ] **Working with multiple branches**
@@ -54,7 +56,7 @@ branch or a pull request, and `main` is unprotected in both.
 
 ## 3. GitHub Actions — CI/CD workflows
 
-> YML files, structure & logic
+YML files, their structure and their logic.
 
 - [ ] **YML structure and logic** — triggers, jobs, steps, conditions, secrets
 - [ ] **`paths:` filters** — one repo, several tools: a Postman change must not
@@ -66,18 +68,16 @@ branch or a pull request, and `main` is unprotected in both.
       reproducibility at the cost of upgrades no longer being free, and
       dependabot is what pays that cost back
 
-The worked example the reviewer pointed at is his own pull request on the Robot repo:
-[`robot-framework-learning` PR #1](https://github.com/nicoletalucia/robot-framework-learning/pull/1/files)
-— 9 files, split workflows per trigger, `dependabot.yml`, a Robot linter and a
-`gitleaks` secret scan. Read it as the example he meant it to be; reviewing and
+There is a worked example already waiting: the open pull request on the Robot
+repo — 9 files, workflows split one per trigger, `dependabot.yml`, a Robot
+linter and a `gitleaks` secret scan. Read it as an example here; reviewing and
 merging it is block 2's work, not this one's.
 
 ## 4. Postman + Newman (+ htmlextra)
 
-> mi s-a părut extrem de fun, dar doar m-am jucat pentru mine cu treaba asta…
-> m-a ajutat prin interviuri… dar nu am folosit niciodată în real-life-scenario
-
-Kept, and kept in proportion. Learn it, be able to demo it, do not build an
+Kept in proportion, on a warning worth recording: it is genuinely fun, it helps
+in interviews — and the person who told me so has never once used it in a
+real-life scenario. Learn it, be able to demo it, do not build an
 identity on it.
 
 - [x] A collection over a public API: environments, variables, assertions in the
@@ -98,9 +98,9 @@ should be tested, and why that and not something else**.
 
 ## 6. Newer frameworks: Playwright, Cypress, +/- Puppeteer
 
-**Selenium is out.** The reviewer's call, and his own history behind it: he liked it,
-felt it plateau, and moved to Cypress and Playwright. There is no reason to
-learn a tool in the state he left it in.
+**Selenium is out** — on the recommendation of someone who used it for years,
+watched it plateau, and moved to Cypress and Playwright. No reason to learn a
+tool in the state he left it in.
 
 One thing worth knowing before starting: **Playwright is cheaper than it looks.**
 Robot's Browser library *is* Playwright underneath, so the auto-waiting, the
@@ -120,15 +120,13 @@ concepts already used for thirty days. What changes is the dialect.
 
 ## 7. Cybersecurity — nice to have, not mandatory
 
-> greu tare de ajuns pe post de Pentester or similar (nevoie de pile); nu merită
-> super-aprofundat, maxat pe skill-ul ăsta, însă e fain ca minimă adiție pentru
-> că noi suntem jack-of-all-trades
-
-Extremely fun and engaging, well paid, and very hard to get into — expensive
-certifications, and the pipeline targets students. Shallow on purpose.
+Extremely fun and engaging, well paid, and very hard to get into: getting a
+pentester role takes connections, the certifications are expensive, and the
+pipeline targets students. Not worth maxing out. Worth having because QA is a
+jack-of-all-trades role. Shallow on purpose.
 
 - [ ] OWASP Top 10, at a reading level
-- [ ] Secret scanning — `gitleaks`, already written in that PR
+- [ ] Secret scanning — `gitleaks`, already written in that open PR
 - [ ] An OWASP ZAP baseline scan against a demo application
 - [ ] (Already started: the path-traversal test written on Day 29)
 
@@ -137,22 +135,21 @@ certifications, and the pipeline targets students. Shallow on purpose.
 - [ ] **k6** — a first load test, thresholds, a report
 - [ ] **Docker** — the suites running somewhere that is not my laptop
 
-**Networking is not in this plan.** The reviewer's read: interesting at the surface,
-boring deep, and it plateaus in both knowledge and salary, with a lot of
-low-level work.
+**Networking is not in this plan.** Interesting at the surface, boring deep,
+and it plateaus in both knowledge and salary, with a lot of low-level work.
 
 ## Housekeeping
 
-Not learning, but he raised both and both are real.
+Not learning, but all three are real.
 
 - [ ] **The GitHub profile is empty** — no photo, no details, no public repos.
-      His point, from experience: people do find you that way and write to you
+      Worth fixing: people do find you that way and write to you
 - [ ] **Decide what goes public, and when.** Both repos are private today
 
 ## How to use this plan
 
-> recomand să experimentezi, să vezi ce-ți place, să vezi dacă se caută în piață,
-> și să forjezi în acea parte (skills, frameworks, knowledge)
+Experiment, see what I enjoy, check whether the market is asking for it, and
+then forge in that direction — skills, frameworks, knowledge.
 
 A starting order, not a commitment. A block that turns out to be dull, or dead
 in the market, is a block to cut — and cutting it is a result.
@@ -164,7 +161,8 @@ hour, then build.
 
 **Postman**
 - [Postman Beginner's Course — API Testing](https://www.youtube.com/watch?v=VywxIQ2ZXw4)
-  — freeCodeCamp. The reviewer learned Postman from this exact one: *GOD-tier*
+  — freeCodeCamp. Recommended by someone who learned Postman from this exact
+  one, in the strongest terms
 - [Learn Postman for API Testing (Step-by-Step)](https://www.youtube.com/watch?v=wEOLZq-7DYs) — shorter alternative
 
 **Process and writing**
