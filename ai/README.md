@@ -77,9 +77,18 @@ Not malicious, just never considered — the material was in front of it and the
 task was "put this in the plan".
 *Rule adopted: anything about a person, in a file, needs asking first.*
 
+**It said the plan followed a list, without checking.** Asked what the plan was,
+it compared the plan against the advice it was built from and reported that the
+plan followed the list "in his order". It did not: blocks from an older plan had
+been merged in, and Postman had moved ahead of Playwright. The mismatch was
+visible in a single reading of the original message, and it was caught only
+because I pushed back.
+*Rule adopted: "this matches X" is a claim like any other. Check it against X
+before saying it, and say what was compared.*
+
 ### The shape of it
 
-The pattern in all four failures is the same: **it optimises for producing a good
+The pattern in all five failures is the same: **it optimises for producing a good
 answer to the task in front of it, and the things it drops are the ones outside
 that frame** — a decision made earlier, a measurement's variance, whose words
 those were. None of it was hard to catch. All of it needed someone to look.
