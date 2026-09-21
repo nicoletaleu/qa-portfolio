@@ -1,0 +1,13 @@
+case,birthdate,on,expected,why,source
+birthday-today,2000-08-04,2026-08-04,26,the edge itself: the birthday has happened,spec
+day-before-birthday,2000-08-05,2026-08-04,25,one day short of the edge,spec
+day-after-birthday,2000-08-03,2026-08-04,26,one day past the edge,spec
+born-on-the-day,2026-08-04,2026-08-04,0,the smallest valid age,spec
+dec-31-day-before,1999-12-31,2026-12-30,26,birthday on the last day of the year not yet reached,spec
+dec-31-on-the-day,1999-12-31,2026-12-31,27,birthday on the last day of the year reached,spec
+jan-1-on-dec-31,2000-01-01,2026-12-31,26,a whole year minus one day,spec
+leap-born-feb-28,2004-02-29,2026-02-28,21,no 29 February this year: birthday counted from 1 March - conventions differ by country,assumed
+leap-born-mar-1,2004-02-29,2026-03-01,22,no 29 February this year: 1 March is past it either way,spec
+leap-born-leap-year,2004-02-29,2028-02-29,24,the birthday exists this year,spec
+very-old,1900-01-01,2026-08-04,126,large difference with no special case,spec
+born-in-the-future,2030-01-01,2026-08-04,error,a birthdate after the reference date is not an age,assumed

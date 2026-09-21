@@ -1,0 +1,17 @@
+case,input,expected,why,source
+nine-digits,072112345,072112345,lower length limit - just inside,spec
+eight-digits,07211234,error,lower length limit - just outside,spec
+fifteen-digits,+123456789012345,+123456789012345,upper length limit - just inside,spec
+sixteen-digits,1234567890123456,error,upper length limit - just outside,spec
+international-plus,+40 721 123 456,+40721123456,leading plus kept and spaces stripped,spec
+double-zero-prefix,0040 721 123 456,0040721123456,international prefix written without a plus,spec
+brackets-and-dots,(0721) 123.456,0721123456,brackets and dots stripped,spec
+surrounding-spaces,  0721 123 456  ,0721123456,spaces before and after,spec
+empty,,error,nothing at all,spec
+plus-only,+,error,a plus and no digits,spec
+plus-in-the-middle,0721+123456,error,only a leading plus is kept,spec
+letters-in-the-number,0721 ABC 123456,error,letters are not in the list of characters that get stripped,spec
+letter-o-for-zero,O721 123 456,error,the realistic typo: capital O typed for a zero,spec
+extension,0721 123 456 ext 12,error,an extension is not part of the number,assumed
+double-plus,++40721123456,error,two leading plus signs,assumed
+non-latin-digits,٠٧٢١١٢٣٤٥٦,error,Arabic-Indic digits - valid digits to Python but not to a dialler,assumed
