@@ -30,15 +30,21 @@ argue with in six months.
 In demand right now, and it compounds: every block below goes faster once this
 one is real.
 
-- [ ] **Skills** — reusable instructions instead of retyping context every session
-- [ ] **Context** — what a model can and cannot see, why a long session degrades,
-      what belongs in a prompt versus a file versus a repo
-- [ ] **Constructive limitations** — where the output is confidently wrong, what
-      always has to be verified, which tasks cost more to check than to do
+Work lives in [`ai/`](ai/).
+
+- [x] **Skills** — reusable instructions instead of retyping context every
+      session: `CLAUDE.md` for what is always true, `.claude/skills/bug-report/`
+      for what is only sometimes needed
+- [x] **Context** — what belongs in a prompt versus a file versus a repo, and
+      why a long session degrades. Written up in [`ai/`](ai/)
+- [ ] **Constructive limitations** — started. Four real failures recorded so far,
+      with the rule each one produced. Stays open: this is a running record, not
+      a task that finishes
 - [ ] **Flow automation** — the repetitive parts of the job: test data, a first
-      draft of test cases from an acceptance criterion, reading a failing log,
-      drafting a bug report from a session
-- [ ] Write down what actually worked and what did not, from real sessions
+      draft of test cases from an acceptance criterion, reading a failing log.
+      Bug reports are done; the rest is not
+- [ ] Keep writing down what actually worked and what did not, from real
+      sessions rather than from theory
 
 ## 2. Git + GitHub — the practical side
 

@@ -14,6 +14,7 @@ This repo is everything after that. The plan it follows is
 
 | Folder | What it covers | State |
 |---|---|---|
+| [`ai/`](ai/) | Using AI on QA work — reusable instructions, a skill, and an honest record | in progress |
 | [`postman/`](postman/) | A collection over the same API the Robot suites use | done |
 
 Nothing else yet. The table grows as the plan does, and an empty row is more
