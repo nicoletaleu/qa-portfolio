@@ -2,26 +2,28 @@
 
 My plan for what to learn after Robot Framework, and in what order.
 
-The order was reworked after a working QA engineer read the Robot repo and told
-me what he would change. I have kept his conclusions and dropped his name: the
-advice came in a private message, and it is not mine to publish. The reasoning
-is written out below, because a plan without its reasoning is a plan I cannot
-argue with in six months.
+The list and its order come from a working QA engineer who read the Robot repo
+and told me what he would learn in my place. I have kept his conclusions and
+dropped his name: the advice came in a private message, and it is not mine to
+publish.
+
+An earlier version mixed his list with blocks from my own first plan — test
+design on paper, k6, Docker — and in doing so moved Postman ahead of
+Playwright, against his order. Those blocks are gone. If one of them earns its
+way back, it comes back as a decision written down here, not as something left
+over.
 
 ## Where I am
 
 | Area | Where it stands |
 |---|---|
-| Framework design & maintenance | done — resources, page objects, listeners, pabot |
-| API testing | done — RequestsLibrary, stub server, contracts, DB checks |
-| Python | done — eight modules: two listeners, two servers, four helper libraries |
-| Test isolation | done — 189 tests, none of them touching the network |
-| CI | half — three run paths and a nightly job, never exercised through a pull request |
+| Framework design, API testing, Python, test isolation | done — the Robot repo, 189 tests, none of them touching the network |
+| AI as a working tool | in progress — block 1 |
 | Git beyond `commit` and `push` | missing — every commit in both repos went straight to `main` |
-| AI as a working tool | missing as a written-down skill |
-| Test design on paper | missing — everything so far is automation, nothing is a written test |
-| A second browser stack | missing |
-| Performance, containers, security | missing |
+| CI | half — three run paths and a nightly job in the Robot repo, never exercised through a pull request |
+| A modern browser stack | missing — Robot's Browser library is Playwright underneath, but never used directly |
+| Postman | started — a collection, not yet in CI |
+| Security | one test — the path-traversal check from the Robot repo |
 
 ---
 
@@ -37,14 +39,12 @@ Work lives in [`ai/`](ai/).
       for what is only sometimes needed
 - [x] **Context** — what belongs in a prompt versus a file versus a repo, and
       why a long session degrades. Written up in [`ai/`](ai/)
-- [ ] **Constructive limitations** — started. Four real failures recorded so far,
-      with the rule each one produced. Stays open: this is a running record, not
-      a task that finishes
+- [ ] **Constructive limitations** — started. A running record of real
+      failures, with the rule each one produced. Stays open: this is a record,
+      not a task that finishes
 - [ ] **Flow automation** — the repetitive parts of the job: test data, a first
       draft of test cases from an acceptance criterion, reading a failing log.
       Bug reports are done; the rest is not
-- [ ] Keep writing down what actually worked and what did not, from real
-      sessions rather than from theory
 
 ## 2. Git + GitHub — the practical side
 
@@ -58,7 +58,8 @@ working day with branches and reviews in it looks like.
 - [ ] Resolve a conflict on purpose, before one happens for real
 
 Worth knowing before starting: nothing in either repo has ever been through a
-branch or a pull request, and `main` is unprotected in both.
+branch or a pull request, and `main` is unprotected in both. From this block on,
+nothing goes straight to `main`.
 
 ## 3. GitHub Actions — CI/CD workflows
 
@@ -69,84 +70,70 @@ YML files, their structure and their logic.
       start another tool's workflow
 - [ ] **A workflow that gates a pull request** — required checks
 - [ ] **Artifacts and reports**
-- [ ] **Dependency updates** — `dependabot.yml`, which pairs exactly with the
-      version pinning done on the last day of the Robot repo: pinning bought
-      reproducibility at the cost of upgrades no longer being free, and
-      dependabot is what pays that cost back
+- [ ] **Dependency updates** — `dependabot.yml`, which pays back the cost of the
+      version pinning done at the end of the Robot repo: pinning bought
+      reproducibility, and upgrades stopped being free
 
-There is a worked example already waiting: the open pull request on the Robot
-repo — 9 files, workflows split one per trigger, `dependabot.yml`, a Robot
-linter and a `gitleaks` secret scan. Read it as an example here; reviewing and
-merging it is block 2's work, not this one's.
+The worked example is already waiting: the open pull request on the Robot repo —
+workflows split one per trigger, `dependabot.yml`, a Robot linter and a
+`gitleaks` secret scan. Read it here as an example of structure; reviewing and
+merging it is block 2's work.
 
-## 4. Postman + Newman (+ htmlextra)
+## 4. Newer frameworks: Playwright, Cypress, +/- Puppeteer
 
-Kept in proportion, on a warning worth recording: it is genuinely fun, it helps
-in interviews — and the person who told me so has never once used it in a
-real-life scenario. Learn it, be able to demo it, do not build an
-identity on it.
+**Selenium is out entirely** — on the advice of someone who used it for years,
+watched it plateau and fall behind, and moved to Cypress and Playwright.
 
-- [x] A collection over a public API: environments, variables, assertions in the
-      Tests tab, pre-request scripts → [`postman/`](postman/)
-- [ ] **newman** in GitHub Actions
-- [ ] **htmlextra** — a readable HTML report as a CI artifact
+**Playwright is cheaper than it looks.** Robot's Browser library *is* Playwright
+underneath, so auto-waiting, the selector engine and the dialog handling are
+concepts already used for thirty days. What changes is the language.
 
-## 5. Test design on paper
-
-Everything built so far answers *does this work*. Nothing yet answers **what
-should be tested, and why that and not something else**.
-
-- [ ] A test plan for one application: scope, risk, entry and exit criteria
-- [ ] Formal test cases, and one genuinely good bug report — steps, expected,
-      actual, severity
-- [ ] A traceability matrix, and a smoke/regression tag strategy written down
-      (the Robot repo enforces one in code without ever having written one out)
-
-## 6. Newer frameworks: Playwright, Cypress, +/- Puppeteer
-
-**Selenium is out** — on the recommendation of someone who used it for years,
-watched it plateau, and moved to Cypress and Playwright. No reason to learn a
-tool in the state he left it in.
-
-One thing worth knowing before starting: **Playwright is cheaper than it looks.**
-Robot's Browser library *is* Playwright underneath, so the auto-waiting, the
-selector engine, `>>>` for frames and the promise-based dialog handling are all
-concepts already used for thirty days. What changes is the dialect.
-
-- [ ] **The JavaScript that is actually needed first** — `const`/`let`, arrow
+- [ ] **The JavaScript that is actually needed** — `const`/`let`, arrow
       functions, promises and `async`, npm
 - [ ] **Playwright** — locators, fixtures, `expect`, trace viewer
 - [ ] Port three web tests from the Robot repo and write up what moved and what
       did not
-- [ ] **Cypress** — commands, assertions, `cy.intercept()` and fixtures (stubbing
-      again, the same idea as the Robot stub server), custom commands, CI with
-      video and screenshots
+- [ ] **Cypress** — commands, assertions, `cy.intercept()` and fixtures, custom
+      commands, CI with video and screenshots
 - [ ] **+/- Puppeteer** — a browser automation library rather than a test
-      framework. Worth knowing it exists
+      framework. Worth knowing it exists and what it is for
 
-## 7. Cybersecurity — nice to have, not mandatory
+## 5. Postman + Newman (+ htmlextra)
 
-Extremely fun and engaging, well paid, and very hard to get into: getting a
-pentester role takes connections, the certifications are expensive, and the
-pipeline targets students. Not worth maxing out. Worth having because QA is a
+Kept in proportion, and the reason is worth recording: it is genuinely fun and
+it helps in interviews, but the person who recommended it has never used it in
+a real-life scenario. A company was looking for someone to do exactly this, and
+he passed: a job that is mostly API testing would have held him back. Learn it,
+be able to demo it, do not build an identity on it.
+
+- [x] A collection over a public API: environments, variables, assertions in the
+      Tests tab, pre-request scripts → [`postman/`](postman/)
+- [ ] **newman** from the command line and in GitHub Actions
+- [ ] **htmlextra** — a readable HTML report
+
+## 6. Cybersecurity — nice to have, not mandatory
+
+Extremely fun and engaging, well paid, and very hard to get into: expensive
+certifications, entry through connections, and a pipeline aimed at students.
+Not worth maxing out. Worth a minimal addition, because QA is a
 jack-of-all-trades role. Shallow on purpose.
 
 - [ ] OWASP Top 10, at a reading level
 - [ ] Secret scanning — `gitleaks`, already written in that open PR
-- [ ] An OWASP ZAP baseline scan against a demo application
-- [ ] (Already started: the path-traversal test written on Day 29)
+- [ ] (Already started: the path-traversal test in the Robot repo)
 
-## 8. The rest
+---
 
-- [ ] **k6** — a first load test, thresholds, a report
-- [ ] **Docker** — the suites running somewhere that is not my laptop
+## Not in this plan
 
-**Networking is not in this plan.** Interesting at the surface, boring deep,
-and it plateaus in both knowledge and salary, with a lot of low-level work.
+**Selenium** — plateaued and fell behind. See block 4.
+
+**Networking** — interesting at the surface, boring deep, and it plateaus in
+both knowledge and salary, with a lot of low-level work.
 
 ## Housekeeping
 
-Not learning, but all three are real.
+Not learning, but real.
 
 - [ ] **The GitHub profile is empty** — no photo, no details, no public repos.
       Worth fixing: people do find you that way and write to you
@@ -169,16 +156,10 @@ hour, then build.
 - [Postman Beginner's Course — API Testing](https://www.youtube.com/watch?v=VywxIQ2ZXw4)
   — freeCodeCamp. Recommended by someone who learned Postman from this exact
   one, in the strongest terms
-- [Learn Postman for API Testing (Step-by-Step)](https://www.youtube.com/watch?v=wEOLZq-7DYs) — shorter alternative
-
-**Process and writing**
-- [Manual QA: How to file a bug report](https://www.youtube.com/watch?v=7cDzjS6z5ks)
-- [Manual QA: Managing Test Cases and QA Docs](https://www.youtube.com/watch?v=tS5vq4DqJgE)
-- [How to Write a Good Defect Report](https://www.youtube.com/watch?v=rTmEUiWwgLs)
 
 **Cypress**
 - [Learn Cypress End-to-End Testing From Scratch — 2.5h](https://www.youtube.com/watch?v=AnyKTiC3P1M)
 - [Testing JavaScript with Cypress — Full Course](https://www.youtube.com/watch?v=u8vMu7viCm8) — freeCodeCamp
 
-**AI, Git and Playwright** — not filled in yet. Left empty rather than padded
-with links nobody has watched.
+**AI, Git, Actions, Playwright** — not filled in yet. Left empty rather than
+padded with links nobody has watched.

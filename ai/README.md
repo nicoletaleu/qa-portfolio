@@ -31,10 +31,9 @@ exactly why the plan is a file and not a thing agreed in chat.
 
 - [`../CLAUDE.md`](../CLAUDE.md) — always-on instructions for this repo
 - [`../.claude/skills/bug-report/`](../.claude/skills/bug-report/) — a reusable
-  standard for turning a failure into a report someone else can act on. It
-  doubles as block 5's homework: writing the standard down forced the
-  severity-versus-priority distinction and the "report the symptom, not the
-  diagnosis" rule into words
+  standard for turning a failure into a report someone else can act on. Writing
+  the standard down forced the severity-versus-priority distinction and the
+  "report the symptom, not the diagnosis" rule into words
 
 ## Running notes
 
