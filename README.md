@@ -14,7 +14,7 @@ This repo is everything after that. The plan it follows is
 
 | Folder | What it covers | State |
 |---|---|---|
-| [`postman/`](postman/) | P1 — a collection over the same API the Robot suites use | done |
+| [`postman/`](postman/) | A collection over the same API the Robot suites use | done |
 
 Nothing else yet. The table grows as the plan does, and an empty row is more
 honest than a folder with a placeholder in it.
@@ -23,7 +23,8 @@ honest than a folder with a placeholder in it.
 
 Five repos with four commits each read as five abandoned projects. Progression
 is the thing worth showing, and progression needs somewhere to accumulate: the
-test plan written in P8 is about the same application P5 automates, and that
+test plan written for one application is about the same application the browser
+tests automate, and that
 connection only exists if they share a repo.
 
 Robot stays separate for the opposite reason — it is finished, and it reads as

@@ -1,14 +1,27 @@
-# Learning Plan — beyond Robot Framework
+# Learning Plan
 
-The Robot repo covers one tool deeply. This plan covers the rest of the craft:
-the tools I have not touched yet, and the half of testing that never shows up
-in a test suite at all.
+Rewritten after a review from a colleague,
+a working QA engineer who read the Robot repo and said what he would change. The
+order below is his; the reasons are kept where he gave them, because a plan
+whose reasoning is missing is a plan nobody can argue with later.
 
-Numbered `P1, P2, …` so these never get confused with the Robot days. **The
-numbers are labels, not an order** — the sections below are in the order I am
-doing them, and P8–P10 has moved up. The reason is written into its own section,
-and it is the plan's own argument: it is the part that changes how I think
-rather than what I can operate, and *last in the list means first to be dropped*.
+**The `P1, P2, …` numbers are gone.** They were reordered twice in a week and
+had stopped meaning anything — the second reorder needed a line explaining that
+the numbers were not an order, which is the point at which numbering is costing
+more than it pays. Blocks are named, and the order is top to bottom.
+
+## What changed in this rewrite
+
+| Change | Why |
+|---|---|
+| **AI as a working tool** added, first | "cerute extrem de mult acum" |
+| **Git + GitHub** added, second | Practical branch/PR/review work. Everything in both repos so far went straight to `main` |
+| **GitHub Actions** raised to third | Already half-built in the Robot repo; the gap is the PR-shaped half |
+| **Selenium removed entirely** | "depășit tare, old". The reviewer used it, hit a ceiling, moved to Cypress and Playwright |
+| **Playwright + Cypress** replace it | And Playwright is not a new tool here — see the block |
+| **Postman right-sized** | Kept, with his caveat: fun, good in interviews, and he has never used it in a real-life scenario |
+| **Cybersecurity → nice-to-have, shallow on purpose** | Fun and well paid, very hard to get into, expensive certifications. Worth having as breadth, not worth maxing |
+| **Networking dropped** | His read: interesting shallow, boring deep, low ceiling and a lot of low-level work |
 
 ## Where I am
 
@@ -17,100 +30,203 @@ rather than what I can operate, and *last in the list means first to be dropped*
 | Framework design & maintenance | done — resources, page objects, listeners, pabot |
 | API testing | done — RequestsLibrary, stub server, contracts, DB checks |
 | Python | done — eight modules: two listeners, two servers, four helper libraries |
-| CI | done — GitHub Actions, three run paths, a nightly job |
 | Test isolation | done — 189 tests, none of them touching the network |
-| A second API tool | P1 done — Postman + newman |
-| **Test design on paper** | missing — everything so far is automation, nothing is a written test |
-| **A second automation stack** | missing — one tool deeply is not the same as knowing the trade-offs |
-| Performance testing | missing |
-| Security testing | missing |
-| Containers | missing |
+| CI | **half** — three run paths and a nightly job, but never exercised through a pull request |
+| Git beyond `commit` + `push` | **missing** — no branch I made, no PR I opened, no review I gave |
+| AI as a working tool | **missing** as a written-down skill |
+| Test design on paper | **missing** — everything so far is automation, nothing is a written test |
+| A second browser stack | **missing** — though less missing than it looks |
+| Performance, containers, security | missing |
 
-## P1–P2 — Postman + Newman
+---
 
-The cheapest thing on the list: the practice already exists in the Robot repo's
-`tests/api/`, only the tool is new. Worth doing because a GUI client makes
-different mistakes easy than a code client does — which `postman/README.md`
-writes up, and that write-up is the actual deliverable.
+## 1. AI as a working tool
 
-- [x] P1 — a collection over the same public API: environments, variables,
-  assertions in the Tests tab, pre-request scripts
-- [ ] P2 — `newman` running it in GitHub Actions, with a `paths:` filter so a
-  change here does not start every other tool's workflow
+First because it is what the market is asking for right now, and because it
+compounds: every block below gets faster if this one is real.
 
-## P8–P10 — test design on paper
+Not "how to ask a chatbot things". The parts that hold up under work:
 
-Moved up to second, ahead of a whole block of Selenium, because the argument for
-doing it early is stronger than the argument for doing more automation. Thirty
-days and 189 tests answer *does this work*. None of them answer **what should be
-tested, and why that and not something else** — and no third framework is going
-to start answering it.
+- [ ] **Context** — what a model can and cannot see, why a long session degrades,
+      what to put in a prompt versus a file versus a repo
+- [ ] **Skills and instructions** — reusable setup instead of retyping. A
+      `CLAUDE.md`, a project instruction file, a saved prompt that encodes how I
+      want work done
+- [ ] **Constructive limitations** — the useful half. Where output is confidently
+      wrong, what has to be verified, which tasks are worth delegating and which
+      cost more to check than to do
+- [ ] **Flow automation** — the repetitive parts of the job: generating test data,
+      first-draft test cases from an acceptance criterion, reading a failing
+      log, drafting a bug report from a session
+- [ ] **Write it up.** The deliverable is a document in this repo, not a feeling.
+      What worked, what produced confident nonsense, what I now always check
 
-- [ ] P8 — a test plan for one application under test: scope, risk, entry and
-  exit criteria
-- [ ] P9 — formal test cases, and one good bug report: steps, expected, actual,
-  severity
-- [ ] P10 — traceability matrix, and a smoke/regression tag strategy (pairs
-  directly with Robot Day 23, which enforced one in code without ever writing
-  one down)
+## 2. Git and GitHub, for real
 
-## P3–P7 — Selenium + pytest
+The honest gap. Thirty days of Robot and every single commit went straight to
+`main`. No branch, no pull request, no review — which means the part of the
+workflow every team actually runs on is the part with zero practice behind it.
 
-Python is already known, so only the tool changes — which is exactly what makes
-it useful: the same test, written twice, shows what belongs to the tool and what
-belongs to testing. pytest comes along for free.
+The material is already there and waiting: **The reviewer has an open pull request on
+the Robot repo** — `improve_overall`, 9 files, +267 lines. Reviewing it is the
+first exercise, not a chore to clear.
 
-- [ ] P3 — driver setup, explicit waits, first test
-- [ ] P4 — locators and a Page Object as a Python class
-- [ ] P5 — `conftest.py`, fixtures, parametrize (setup/teardown and templates
-  again, in a different dialect)
-- [ ] P6 — screenshot on failure, pytest-html, parallel runs with `pytest-xdist`
-- [ ] P7 — port three web tests from the Browser library and write up where the
-  two approaches differ. This is the one that pays for the block
+- [ ] **Branches** — create, switch, rebase vs merge, what a fast-forward is and
+      when it is a lie
+- [ ] **Pull requests** — open one for a real change. Several small ones beat one
+      large one, and finding that out by living with a large one is the lesson
+- [ ] **Review the open PR properly.** It is a good exercise precisely because it
+      is not all correct — see the notes below
+- [ ] **Request reviews, human and non-human** — and read what the automated ones
+      get wrong, which is the more useful half
+- [ ] **Branch protection on `main`** — neither repo has it. Currently nothing
+      stops a push straight to main, including mine
+- [ ] Resolve conflicts on purpose, at least once, before one happens for real
 
-## P11–P16 — JavaScript + Cypress
+### Notes for reviewing that PR
 
-Breadth, and the first block where returns start diminishing: after Playwright
-and Selenium, Cypress is a third way to do the same job. If time runs short,
-this is the block to cut — not P17–P20, which at least cover things nothing
-else here does.
+Written down because "review a PR" is advice and this is practice.
 
-- [ ] P11–P12 — the JavaScript that is actually needed: `const/let`, arrow
-  functions, promises/async, npm
-- [ ] P13 — first Cypress test, commands and assertions
-- [ ] P14 — `cy.intercept()` and fixtures (stubbing again — same idea as Robot
-  Day 21)
-- [ ] P15 — custom commands, page objects in Cypress
-- [ ] P16 — Cypress in CI, with video and screenshot artefacts
+`dependabot.yml` is the strongest thing in it, and it pairs exactly with the
+dependency pinning done on the last day of the Robot repo: pinning bought
+reproducibility at the cost of upgrades no longer being free, and dependabot is
+the thing that pays that cost back by opening a PR per bump.
 
-## P17–P20 — nice-to-have
+`scripts/run_gitleaks.py` scans for committed secrets. That is the cybersecurity
+block's "minimal addition", already written and already in the repo.
 
-- [ ] P17–P18 — k6: a first load test, thresholds, a report
-- [ ] P19 — OWASP ZAP baseline scan against a demo application
-- [ ] P20 — the suites running in Docker, so they do not depend on my machine
+`on-pr.yml` is where the review gets interesting, and it should **not** be merged
+as-is:
+
+- it runs on `pull_request` and so does the existing `tests.yml` — the suite
+  would run twice per PR
+- it has no `rfbrowser init`, so every web test would fail on a clean runner
+- it runs all of `tests/`, where the existing PR path deliberately runs
+  `--include smoke` for fast feedback
+- it pins Python 3.11; the existing workflow uses 3.12
+- no pabot, no listeners, no `--skiponfailure quarantine`
+
+None of that makes the PR bad. It makes it a real pull request, which is the
+only kind worth practising on. There is also a genuine design disagreement in
+it — he splits CI into one file per trigger, the Robot README argues for one
+file with three steps because *the thing a workflow most needs to be is readable
+at a glance*. That disagreement is worth having in the PR comments rather than
+silently resolving by merging or closing.
+
+## 3. GitHub Actions and CI/CD
+
+Third because it is already half-done and the missing half is the half block 2
+unlocks.
+
+- [ ] **YML structure and logic** — triggers, jobs, steps, `needs`, conditions,
+      matrices, secrets
+- [ ] **`paths:` filters** — one repo, several tools: a Postman change must not
+      start a pytest workflow
+- [ ] **A workflow that gates a PR** — required checks, so the review is enforced
+      rather than optional
+- [ ] **Artifacts and reports** — already done in the Robot repo; redo it here
+      for newman with `htmlextra`
+- [ ] **Caching** — also already done (Playwright browsers keyed on a pinned
+      `requirements.txt`) and worth being able to explain rather than copy
+
+## 4. Postman + Newman + htmlextra
+
+Kept, and kept in proportion. The reviewer's verdict is worth recording verbatim
+because it is the kind of thing nobody tells you: *extrem de fun, m-a ajutat prin
+interviuri, dar nu am folosit niciodată într-un real-life scenario.* Learn it,
+be able to demo it, do not build an identity on it.
+
+- [x] A collection over a public API: environments, variables, assertions in the
+      Tests tab, pre-request scripts → [`postman/`](postman/)
+- [ ] **newman in GitHub Actions**, with a `paths:` filter
+- [ ] **htmlextra** — a readable HTML report as a CI artifact
+- [ ] One honest paragraph on where a GUI client beats a code client and where it
+      does not
+
+## 5. Test design on paper
+
+The block that changes how I think rather than what I can operate. Thirty days
+and 189 tests answer *does this work*. None of them answer **what should be
+tested, and why that and not something else** — and no further framework is
+going to start answering it.
+
+Kept high on purpose. Last in a list means first to be dropped.
+
+- [ ] A test plan for one application: scope, risk, entry and exit criteria
+- [ ] Formal test cases, and one genuinely good bug report — steps, expected,
+      actual, severity
+- [ ] A traceability matrix, and a smoke/regression tag strategy written down
+      (the Robot repo enforces one in code without ever having written one out)
+
+## 6. Playwright and Cypress
+
+Selenium is not here. The reviewer used it, felt it plateau, and moved on; there is
+no reason to learn a tool in the state he left it in.
+
+**Playwright is cheaper than it looks.** Robot's Browser library *is* Playwright
+underneath — the auto-waiting, the selector engine, `>>>` for frames,
+`Promise To` / `Wait For` for dialogs are all Playwright concepts already used
+for thirty days. What changes is the dialect, not the model.
+
+- [ ] **Playwright** in TypeScript: locators, fixtures, `expect`, trace viewer
+- [ ] Port three web tests from the Robot repo and write up what moved and what
+      did not — the write-up is the deliverable
+- [ ] **JavaScript that is actually needed first**: `const`/`let`, arrow
+      functions, promises and `async`, npm
+- [ ] **Cypress**: commands, assertions, `cy.intercept()` and fixtures (stubbing
+      again — the same idea as the Robot stub server), custom commands, CI with
+      video and screenshots
+- [ ] +/- **Puppeteer**, if there is time. Browser automation rather than a test
+      framework, and worth knowing exists
+
+## 7. Nice to have
+
+- [ ] **Cybersecurity, deliberately shallow.** Fun, well paid, and very hard to
+      get into — expensive certifications, and the pipeline targets students.
+      Not worth maxing out. Worth having because QA is a jack-of-all-trades role:
+      OWASP Top 10, a ZAP baseline scan, secret scanning (already started by that
+      PR), and the path-traversal test already written on Day 29
+- [ ] **k6** — a first load test, thresholds, a report
+- [ ] **Docker** — the suites running somewhere that is not my laptop
+
+## Housekeeping
+
+Not learning, but the reviewer raised both and both are real.
+
+- [ ] **The GitHub profile is empty** — no photo, no details, no public repos.
+      His point, from experience: people do find you that way and write to you.
+      Nothing here is public yet, so there is nothing to find
+- [ ] **Decide what goes public, and when.** Both repos are private today
+
+## How to use this plan
+
+The reviewer's closing advice, and the most useful line in the whole review:
+
+> experimentează, vezi ce-ți place, vezi dacă se caută în piață, și forjează în
+> partea aia.
+
+The plan is a starting order, not a commitment. A block that turns out to be
+dull or dead in the market is a block to cut, and cutting it is a result, not a
+failure.
 
 ## Resources
 
-In English, because that is where the material is.
+In English, because that is where the material is. The rule is watch the first
+hour, then build — the Robot repo was not learned by watching.
 
-Not endorsements of the whole runtime: the rule is watch the first hour, then
-build. The Robot repo was not learned by watching.
-
-**Postman (P1–P2)**
-- [Postman Beginner's Course — API Testing](https://www.youtube.com/watch?v=VywxIQ2ZXw4) — freeCodeCamp, the main one
+**Postman**
+- [Postman Beginner's Course — API Testing](https://www.youtube.com/watch?v=VywxIQ2ZXw4)
+  — freeCodeCamp. The reviewer learned from this exact one and calls it GOD-tier
 - [Learn Postman for API Testing (Step-by-Step)](https://www.youtube.com/watch?v=wEOLZq-7DYs) — shorter alternative
-- [API Testing Using Postman — Full Course in 5 hours](https://www.youtube.com/watch?v=CGX6DRNfS-E) — reference, not a sitting
 
-**Process and writing (P8–P10)**
-- [Manual QA: Testing for Beginners — How to file a bug report](https://www.youtube.com/watch?v=7cDzjS6z5ks)
-- [Manual QA: Testing for Beginners — Managing Test Cases and QA Docs](https://www.youtube.com/watch?v=tS5vq4DqJgE)
+**Process and writing**
+- [Manual QA: How to file a bug report](https://www.youtube.com/watch?v=7cDzjS6z5ks)
+- [Manual QA: Managing Test Cases and QA Docs](https://www.youtube.com/watch?v=tS5vq4DqJgE)
 - [How to Write a Good Defect Report](https://www.youtube.com/watch?v=rTmEUiWwgLs)
 
-**Selenium + pytest (P3–P7)**
-- [PyTest Tutorial — Learn PyTest in 90 minutes](https://www.youtube.com/watch?v=UzkuOACmBpA) — start here, pytest alone
-- [Pytest Selenium Python Hybrid Framework with Page Object Model](https://www.youtube.com/watch?v=8V3uP77o7kQ) — the POM part, for P4–P6
-- [Selenium With Python and PyTest — Free Full Course](https://www.youtube.com/playlist?list=PL63jFO_mmwQ0u6iiEN56JsgjTLRuEa30D) — playlist, dip in as needed
-
-**Cypress (P11–P16, later)**
+**Cypress**
 - [Learn Cypress End-to-End Testing From Scratch — 2.5h](https://www.youtube.com/watch?v=AnyKTiC3P1M)
 - [Testing JavaScript with Cypress — Full Course](https://www.youtube.com/watch?v=u8vMu7viCm8) — freeCodeCamp
+
+**Playwright and Git** — not filled in yet. Left empty rather than padded with
+links nobody has watched.

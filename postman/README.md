@@ -1,4 +1,4 @@
-# Postman — P1
+# Postman
 
 The same public API that `tests/api/` already covers, done again in Postman.
 The practice is not new; the tool is. The point of redoing it is the comparison.
@@ -8,7 +8,7 @@ The practice is not new; the tool is. The point of redoing it is the comparison.
 In the Postman app: import both files, pick the `public` environment, run the
 collection.
 
-Headless, which is what CI will use in P2:
+Headless, which is what CI will use:
 
 ```bash
 npx newman run postman/qa-learning.postman_collection.json \
@@ -17,7 +17,7 @@ npx newman run postman/qa-learning.postman_collection.json \
 
 5 requests, 23 assertions, all green. About 1.7s, most of it waiting on the
 network - which is the thing the Robot repo spent Days 28-30 removing, and
-something P2 will have to decide what to do about.
+something the CI half of this block will have to decide what to do about.
 
 ## What is in it
 
@@ -57,5 +57,6 @@ This folder lives in `qa-portfolio`, alongside the plan it follows. The Robot
 Framework work it keeps comparing itself to is a separate repo:
 [robot-framework-learning](https://github.com/nicoletalucia/robot-framework-learning).
 
-P2 is the other half of this: newman running in GitHub Actions, with a `paths:`
-filter so a change here does not start every other tool's workflow.
+The other half of this block is still to come: newman running in GitHub
+Actions, an `htmlextra` report as an artifact, and a `paths:` filter so a change
+here does not start every other tool's workflow.
