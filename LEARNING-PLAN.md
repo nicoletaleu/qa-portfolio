@@ -42,9 +42,10 @@ Work lives in [`ai/`](ai/).
 - [ ] **Constructive limitations** — started. A running record of real
       failures, with the rule each one produced. Stays open: this is a record,
       not a task that finishes
-- [ ] **Flow automation** — the repetitive parts of the job: test data, a first
-      draft of test cases from an acceptance criterion, reading a failing log.
-      Bug reports are done; the rest is not
+- [x] **Flow automation** — the repetitive parts of the job: test data, a first
+      draft of test cases from an acceptance criterion, reading a failing log,
+      bug reports. A skill for each, each used once on real material →
+      [`ai/flow-automation/`](ai/flow-automation/)
 
 ## 2. Git + GitHub — the practical side
 
