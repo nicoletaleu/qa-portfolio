@@ -34,6 +34,46 @@ exactly why the plan is a file and not a thing agreed in chat.
   standard for turning a failure into a report someone else can act on. Writing
   the standard down forced the severity-versus-priority distinction and the
   "report the symptom, not the diagnosis" rule into words
+- [`../.claude/skills/test-data/`](../.claude/skills/test-data/),
+  [`test-cases-from-ac/`](../.claude/skills/test-cases-from-ac/) and
+  [`failing-log/`](../.claude/skills/failing-log/) - the three repetitive jobs
+  below, each written as a standard and then used once on real material
+
+## Flow automation
+
+Three repetitive parts of QA work, each turned into a skill and then run
+against something real in the Robot repo rather than a made-up example. The
+exercises chain: the generated data produced a red run, the red run was read
+with the log skill, and the one real bug in it went to the bug-report skill.
+
+| Job | Worked example | What it produced |
+|---|---|---|
+| Test data | [`flow-automation/test-data/`](flow-automation/test-data/) - 28 rows for the age and phone helpers in `DataHelpers.py`, run through Robot | 6 disagreements: two rows showing one bug, and four open questions |
+| Reading a failing log | [`flow-automation/failing-log.md`](flow-automation/failing-log.md) | each failure sorted into product, test, environment or unclear rule, and the bug handed to [`bug-report-phone-letters.md`](flow-automation/bug-report-phone-letters.md) |
+| Test cases from an acceptance criterion | [`flow-automation/test-cases/login.md`](flow-automation/test-cases/login.md) - 13 cases for the local login page, all executed | 4 cases the Robot suites do not have, and 2 dramatic failures against the wrong target |
+
+What the three have in common is the part that went into every skill: **the
+draft is cheap, and the value is in the check after it.**
+
+- **The expected value has to come from somewhere other than the code.** The
+  test-data skill forbids computing it with the function under test, because
+  then the data can only agree. The phone bug was found only because the
+  expected column came from the docstring.
+- **"Assumed" is a label worth keeping.** Four of the six data failures were
+  questions, not bugs. Without the `source` column they would have read as six
+  bugs, and the one real bug would have been harder to see.
+- **A draft does not know what it is pointed at.** The login draft's two
+  failures - usernames can be enumerated, a forged cookie gets in - are correct
+  observations about a test fixture whose own header says it does not test
+  authentication. The most dramatic output was the least useful.
+- **Reading the existing suite first halves the work.** Six of the thirteen
+  login cases were already in suite 13. The draft's value was the other four,
+  and one of them - checking the secure page after logout - is a real gap.
+
+One mistake of my own, kept because it is the point of the log skill: the first
+version of the age check could not say which row failed. Twelve rows, one
+message, "Expected error '*' did not occur". The fix was two lines. Noticing
+needed the log opened past the console.
 
 ## Running notes
 
