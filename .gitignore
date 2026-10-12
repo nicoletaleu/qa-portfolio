@@ -12,3 +12,7 @@ newman/
 .idea/
 .DS_Store
 Thumbs.db
+
+# Personal permission rules for Claude Code. Not shared: they describe what I
+# let the tool do on this machine, not anything about the project.
+.claude/settings.local.json
