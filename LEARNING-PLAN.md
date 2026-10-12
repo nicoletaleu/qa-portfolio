@@ -52,15 +52,37 @@ Work lives in [`ai/`](ai/).
 The logic of it, and the actual practicality: not what a commit is, but what a
 working day with branches and reviews in it looks like.
 
-- [ ] **Commands** — the everyday set, and what each one really does
-- [ ] **Working with multiple branches**
-- [ ] **Multiple PRs** — several small pull requests rather than one large one
+- [ ] **Commands** — the everyday set, and what each one really does. Started on
+      what came up rather than on a list: `fetch`, `merge-base`, `cherry-pick`,
+      `branch`, `remote prune`, `ls-remote`, `merge-tree` to test a merge
+      without doing it
+- [x] **Working with multiple branches** — four branches across the two repos,
+      one of them rebuilt from scratch after a mangled commit message
+- [x] **Multiple PRs** — three of my own, two in `qa-portfolio` and one in the
+      Robot repo, plus the eight dependabot opened
 - [ ] **Requesting code reviews, human and non-human**, in GitHub
 - [ ] Resolve a conflict on purpose, before one happens for real
 
 Worth knowing before starting: nothing in either repo has ever been through a
 branch or a pull request, and `main` is unprotected in both. From this block on,
 nothing goes straight to `main`.
+
+**Where this stands.** The two items still open are the two that need another
+person or a deliberate setup:
+
+- **Reviews.** A full review of the Robot repo's pull request #1 exists, and it
+  found real things: the branch was cut before the repo had any CI, so merging
+  it would have added a second workflow that goes red on every pull request.
+  It was never posted. Its three usable ideas were taken into a pull request of
+  my own instead, and #1 is left as it is, deliberately.
+- **A conflict on purpose.** A real one is already sitting in #1, in
+  `.gitignore`. It has not been resolved, because resolving it means touching
+  somebody else's branch.
+
+What did get exercised, and was not planned: reviewing eight dependency updates
+and noticing that a green pull request is weak evidence here, because a pull
+request runs the smoke set only. All eight were re-run against the whole suite
+before merging.
 
 ## 3. GitHub Actions — CI/CD workflows
 
