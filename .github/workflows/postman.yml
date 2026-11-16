@@ -1,0 +1,60 @@
+# Block 5 - the Postman collection, run headless by newman on every change to it.
+#
+# The collection calls JSONPlaceholder over the internet. The Robot repo spent
+# Days 28-30 taking exactly that out of its CI, so this workflow is deliberately
+# narrow about when it runs: only when something it tests or runs has changed,
+# or by hand. No nightly job - the Robot repo already checks the same API's
+# shape every night with its contract tests, and a second alarm for the same
+# provider would only teach me to ignore both.
+name: postman
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "postman/**"
+      - ".github/workflows/postman.yml"
+  pull_request:
+    paths:
+      - "postman/**"
+      - ".github/workflows/postman.yml"
+  workflow_dispatch: # a "Run workflow" button, for when the API is the suspect
+
+jobs:
+  newman:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5 # five requests; anything near this is the network, not the tests
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: "20"
+
+      # Pinned, for the same reason requirements.txt is pinned in the Robot repo:
+      # an unpinned runner can go red with no change to any file here.
+      - name: Install newman and the htmlextra reporter
+        run: npm install --no-save newman@6.2.3 newman-reporter-htmlextra@1.23.1
+
+      # cli: the log on this page. junit: a machine-readable result.
+      # htmlextra: the readable report, uploaded below.
+      - name: Run the collection
+        run: >-
+          npx newman run postman/qa-learning.postman_collection.json
+          --environment postman/environments/public.postman_environment.json
+          --reporters cli,junit,htmlextra
+          --reporter-junit-export newman/results.xml
+          --reporter-htmlextra-export newman/report.html
+          --reporter-htmlextra-title "qa-portfolio - Postman collection"
+
+      # always(): a red run is exactly when the report is worth opening.
+      - name: Upload the reports
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: newman-report
+          path: newman/
+          retention-days: 14

@@ -22,7 +22,7 @@ over.
 | Git beyond `commit` and `push` | started — three pull requests of my own, but most work still goes straight to `main` |
 | CI | half — three run paths and a nightly job in the Robot repo, running on pull requests too; no required checks yet |
 | A modern browser stack | missing — Robot's Browser library is Playwright underneath, but never used directly |
-| Postman | started — a collection, not yet in CI |
+| Postman | done — a collection, run by newman in CI with an htmlextra report |
 | Security | one test — the path-traversal check from the Robot repo |
 
 ---
@@ -132,8 +132,9 @@ be able to demo it, do not build an identity on it.
 
 - [x] A collection over a public API: environments, variables, assertions in the
       Tests tab, pre-request scripts → [`postman/`](postman/)
-- [ ] **newman** from the command line and in GitHub Actions
-- [ ] **htmlextra** — a readable HTML report
+- [x] **newman** from the command line and in GitHub Actions →
+      [`postman.yml`](.github/workflows/postman.yml)
+- [x] **htmlextra** — a readable HTML report, uploaded as a CI artifact
 
 ## 6. Cybersecurity — nice to have, not mandatory
 
