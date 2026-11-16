@@ -159,8 +159,7 @@ Not learning, but real.
 
 - [ ] **The GitHub profile is empty** — no photo, no details, no public repos.
       Worth fixing: people do find you that way and write to you
-- [x] **Decide what goes public, and when.** This repo is public;
-      `robot-framework-learning` is still private
+- [x] **Decide what goes public, and when.** Both repos are public
 
 ## How to use this plan
 
