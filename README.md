@@ -7,28 +7,43 @@ Learning test automation in public, one tool at a time.
 — 30 days, 189 tests, a stub server and a local site so none of it touches the
 network. It is the longest piece of this and the best place to start reading.
 
-This repo is everything after that. The plan it follows is
-[`LEARNING-PLAN.md`](LEARNING-PLAN.md).
+**Playwright has one too:
+[playwright-typescript-tests](https://github.com/nicoletaleu/playwright-typescript-tests)**
+— three of the Robot web suites ported to Playwright and TypeScript, against
+the same local site, with a write-up of what changed between the two tools.
+
+This repo is the plan both of them came out of, and the work that is smaller
+or still moving. The plan is [`LEARNING-PLAN.md`](LEARNING-PLAN.md).
 
 ## What is here
 
-| Folder | What it covers | State |
+| Where | What it covers | State |
 |---|---|---|
 | [`ai/`](ai/) | Using AI on QA work — reusable instructions, a skill, and an honest record | in progress |
-| [`postman/`](postman/) | A collection over the same API the Robot suites use | done |
+| [`postman/`](postman/) | A collection over the same API the Robot suites use, run by newman in CI | done |
+| [playwright-typescript-tests](https://github.com/nicoletaleu/playwright-typescript-tests) | Robot suites 13-15 ported to Playwright + TypeScript | done, own repo |
 
-Nothing else yet. The table grows as the plan does, and an empty row is more
-honest than a folder with a placeholder in it.
+## Built with
 
-## Why one repo and not one per tool
+| Part | Tools |
+|---|---|
+| `postman/` | Postman, tests in JavaScript (`pm.test`, `pm.expect`); newman in GitHub Actions, htmlextra and JUnit reports |
+| `ai/` | Claude Code: `CLAUDE.md` and skills written in Markdown, plus a small Python script and a Robot Framework file for test data |
+| CI | GitHub Actions, one workflow per tool, each started only by changes to its own folder (`paths:` filters) |
+| Playwright | in its own repo: Playwright Test, TypeScript, Node.js |
 
-Five repos with four commits each read as five abandoned projects. Progression
-is the thing worth showing, and progression needs somewhere to accumulate: the
-Playwright and Cypress tests will run in the same GitHub Actions setup the
-Postman collection does, and that comparison only exists if they share a repo.
+## Where each tool lives
 
-Robot stays separate for the opposite reason — it is finished, and it reads as
-one thing. Nested under a folder here it would stop reading as one thing.
+This section used to say every new tool would live here, in one repo, because
+five repos with four commits each read as five abandoned projects. That is
+still true of small pieces, which is why Postman and the AI work are folders.
+
+What changed the rule is that a finished port reads as one thing, the way the
+Robot repo does. The Playwright work has its own README, its own CI and its
+own site, and someone looking for Playwright on a profile should find it by
+name rather than inside a folder of a repo called something else. So: a tool
+gets its own repo once it is a finished, self-contained project; until then
+it is a folder here.
 
 ## Running any of it
 

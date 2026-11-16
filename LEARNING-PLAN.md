@@ -21,7 +21,7 @@ over.
 | AI as a working tool | in progress — block 1 |
 | Git beyond `commit` and `push` | started — three pull requests of my own, but most work still goes straight to `main` |
 | CI | half — three run paths and a nightly job in the Robot repo, running on pull requests too; no required checks yet |
-| A modern browser stack | missing — Robot's Browser library is Playwright underneath, but never used directly |
+| A modern browser stack | started — [Playwright + TypeScript](https://github.com/nicoletaleu/playwright-typescript-tests): three Robot web suites ported, 18 tests in CI |
 | Postman | done — a collection, run by newman in CI with an htmlextra report |
 | Security | one test — the path-traversal check from the Robot repo |
 
@@ -115,9 +115,13 @@ concepts already used for thirty days. What changes is the language.
 
 - [ ] **The JavaScript that is actually needed** — `const`/`let`, arrow
       functions, promises and `async`, npm
-- [ ] **Playwright** — locators, fixtures, `expect`, trace viewer
-- [ ] Port three web tests from the Robot repo and write up what moved and what
-      did not
+- [ ] **Playwright** — locators, fixtures, `expect`, trace viewer. Started:
+      locators, a worker-scoped fixture and `expect` are in use; the trace
+      viewer is configured for failures but not yet opened on a real one
+- [x] Port three web tests from the Robot repo and write up what moved and what
+      did not → suites 13, 14 (dialogs) and 15, in
+      [playwright-typescript-tests](https://github.com/nicoletaleu/playwright-typescript-tests),
+      with the comparison in its README
 - [ ] **Cypress** — commands, assertions, `cy.intercept()` and fixtures, custom
       commands, CI with video and screenshots
 - [ ] **+/- Puppeteer** — a browser automation library rather than a test
