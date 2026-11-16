@@ -15,7 +15,8 @@ next.** The order is deliberate and has been re-argued twice. If something
 outside the current block looks more urgent or more concrete, say so and let me
 decide — do not start it.
 
-Both repos are private. Do not make anything public.
+This repo is public. `robot-framework-learning` is still private; do not make
+anything else public without asking.
 
 ## How work is delivered here
 

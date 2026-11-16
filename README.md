@@ -4,6 +4,7 @@ Learning test automation in public, one tool at a time.
 
 **The Robot Framework part has a repo of its own:
 [robot-framework-learning](https://github.com/nicoletalucia/robot-framework-learning)**
+(private for now)
 — 30 days, 189 tests, a stub server and a local site so none of it touches the
 network. It is the longest piece of this and the best place to start reading.
 

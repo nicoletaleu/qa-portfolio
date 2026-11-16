@@ -124,9 +124,8 @@ concepts already used for thirty days. What changes is the language.
 ## 5. Postman + Newman (+ htmlextra)
 
 Kept in proportion, and the reason is worth recording: it is genuinely fun and
-it helps in interviews, but the person who recommended it has never used it in
-a real-life scenario. A company was looking for someone to do exactly this, and
-he passed: a job that is mostly API testing would have held him back. Learn it,
+it helps in interviews, but a job that is mostly API testing can hold you back.
+Learn it,
 be able to demo it, do not build an identity on it.
 
 - [x] A collection over a public API: environments, variables, assertions in the
@@ -160,7 +159,8 @@ Not learning, but real.
 
 - [ ] **The GitHub profile is empty** — no photo, no details, no public repos.
       Worth fixing: people do find you that way and write to you
-- [ ] **Decide what goes public, and when.** Both repos are private today
+- [x] **Decide what goes public, and when.** This repo is public;
+      `robot-framework-learning` is still private
 
 ## How to use this plan
 
