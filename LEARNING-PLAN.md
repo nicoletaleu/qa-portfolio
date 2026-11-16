@@ -99,7 +99,7 @@ YML files, their structure and their logic.
       reproducibility, and upgrades stopped being free
 
 The worked example is the Robot repo's own
-[`tests.yml`](https://github.com/nicoletalucia/robot-framework-learning/blob/main/.github/workflows/tests.yml):
+[`tests.yml`](https://github.com/nicoletaleu/robot-framework-learning/blob/main/.github/workflows/tests.yml):
 the smoke set on pull requests, a dry run of every suite, a `gitleaks` secret
 scan, and `dependabot.yml` next to it. The colleague's review also proposed
 splitting it into one workflow per trigger. That idea is not taken yet.

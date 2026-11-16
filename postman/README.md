@@ -55,7 +55,7 @@ Folders and `--folder` are the closest thing to tags.
 
 This folder lives in `qa-portfolio`, alongside the plan it follows. The Robot
 Framework work it keeps comparing itself to is a separate repo:
-[robot-framework-learning](https://github.com/nicoletalucia/robot-framework-learning).
+[robot-framework-learning](https://github.com/nicoletaleu/robot-framework-learning).
 
 The other half of this block is still to come: newman running in GitHub
 Actions, an `htmlextra` report as an artifact, and a `paths:` filter so a change
