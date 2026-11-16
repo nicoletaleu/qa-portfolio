@@ -19,8 +19,8 @@ over.
 |---|---|
 | Framework design, API testing, Python, test isolation | done — the Robot repo, 189 tests, none of them touching the network |
 | AI as a working tool | in progress — block 1 |
-| Git beyond `commit` and `push` | missing — every commit in both repos went straight to `main` |
-| CI | half — three run paths and a nightly job in the Robot repo, never exercised through a pull request |
+| Git beyond `commit` and `push` | started — three pull requests of my own, but most work still goes straight to `main` |
+| CI | half — three run paths and a nightly job in the Robot repo, running on pull requests too; no required checks yet |
 | A modern browser stack | missing — Robot's Browser library is Playwright underneath, but never used directly |
 | Postman | started — a collection, not yet in CI |
 | Security | one test — the path-traversal check from the Robot repo |
@@ -63,21 +63,22 @@ working day with branches and reviews in it looks like.
 - [ ] **Requesting code reviews, human and non-human**, in GitHub
 - [ ] Resolve a conflict on purpose, before one happens for real
 
-Worth knowing before starting: nothing in either repo has ever been through a
-branch or a pull request, and `main` is unprotected in both. From this block on,
-nothing goes straight to `main`.
+When this block started, nothing in either repo had been through a branch or a
+pull request. `main` is still unprotected in both. From this block on, nothing
+goes straight to `main`.
 
 **Where this stands.** The two items still open are the two that need another
 person or a deliberate setup:
 
-- **Reviews.** A full review of the Robot repo's pull request #1 exists, and it
-  found real things: the branch was cut before the repo had any CI, so merging
-  it would have added a second workflow that goes red on every pull request.
-  It was never posted. Its three usable ideas were taken into a pull request of
-  my own instead, and #1 is left as it is, deliberately.
-- **A conflict on purpose.** A real one is already sitting in #1, in
+- **Reviews.** A colleague opened a pull request on the Robot repo, and I wrote
+  a full review of it. It found real things: the branch was cut before the repo
+  had any CI, so merging it would have added a second workflow that goes red on
+  every pull request. The review was never posted. Its three usable ideas were
+  taken into a pull request of my own instead. The original pull request stays
+  in a private copy of the repo, because it is his work, not mine to publish.
+- **A conflict on purpose.** A real one sits in that pull request, in
   `.gitignore`. It has not been resolved, because resolving it means touching
-  somebody else's branch.
+  somebody else's branch. It needs a setup of my own.
 
 What did get exercised, and was not planned: reviewing eight dependency updates
 and noticing that a green pull request is weak evidence here, because a pull
@@ -97,10 +98,11 @@ YML files, their structure and their logic.
       version pinning done at the end of the Robot repo: pinning bought
       reproducibility, and upgrades stopped being free
 
-The worked example is already waiting: the open pull request on the Robot repo —
-workflows split one per trigger, `dependabot.yml`, a Robot linter and a
-`gitleaks` secret scan. Read it here as an example of structure; reviewing and
-merging it is block 2's work.
+The worked example is the Robot repo's own
+[`tests.yml`](https://github.com/nicoletalucia/robot-framework-learning/blob/main/.github/workflows/tests.yml):
+the smoke set on pull requests, a dry run of every suite, a `gitleaks` secret
+scan, and `dependabot.yml` next to it. The colleague's review also proposed
+splitting it into one workflow per trigger. That idea is not taken yet.
 
 ## 4. Newer frameworks: Playwright, Cypress, +/- Puppeteer
 
@@ -141,7 +143,7 @@ Not worth maxing out. Worth a minimal addition, because QA is a
 jack-of-all-trades role. Shallow on purpose.
 
 - [ ] OWASP Top 10, at a reading level
-- [ ] Secret scanning — `gitleaks`, already written in that open PR
+- [ ] Secret scanning — `gitleaks`, already running in the Robot repo's CI
 - [ ] (Already started: the path-traversal test in the Robot repo)
 
 ---
